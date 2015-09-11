@@ -1,12 +1,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(){
-	char card_name[3];
-	int count = 0;
+void read_card(char card_name[]){
+	puts("Enter the card_name: ");
+	scanf("%2s", card_name);
+}
+
+int counter(int *val, int *count){
+	if ((*val>2) && (*val<7)){
+		*count = *count + 1;
+	} else if (*val == 10){
+		*count = *count - 1;
+	}
+	return *count;
+}
+
+void choises(char card_name[], int *count){
 	while (card_name[0]!='X'){
-		puts("Enter the card_name: ");
-		scanf("%2s", card_name);
+		read_card(card_name);
 		int val = 0;
 		switch (card_name[0]){
 			case 'K':
@@ -26,12 +37,14 @@ int main(){
 					continue;
 				}
 		}
-		if ((val>2) && (val<7)){
-			count++;
-		} else if (val == 10){
-			count--;
-		}
-		printf("Current count: %i\n", count);
+		
+		printf("Current count: %i\n", counter(&val, count));
 	}
+}
+
+int main(){
+	char card_name[3];
+	int count = 0;
+	choises(card_name, &count);
 	return 0;
 } 
